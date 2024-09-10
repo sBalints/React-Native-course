@@ -1,0 +1,3 @@
+Hi! My name is Balint, and in this repo i will store my projects written in react-native.
+Hope u enjoy!
+Please hit the like button, and give me a huge subscribe!
