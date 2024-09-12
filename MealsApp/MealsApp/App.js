@@ -8,22 +8,39 @@ import CategoriresScreen from './screens/CategoriesScreen';
 import MealsOverviewScreen from './screens/MealsOverviewScreen';
 
 import {useFonts} from 'expo-font'
+import MealDetailsScreen from './screens/MealDetailsScreen';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
 
-  const [fontsLoaded] = useFonts({
-    'soda-shake': require('./assets/fonts/soda-shake.ttf')
-  })
+  // const [fontsLoaded] = useFonts({
+  //   'soda-shake': require('./assets/fonts/soda-shake.ttf')
+  // })
 
   return (
     <>
-      <StatusBar style='dark'/>
+      <StatusBar style='light'/>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='MealsCategories'>
-          <Stack.Screen name='MealsCategories' component={CategoriresScreen}/>
+        <Stack.Navigator 
+          initialRouteName='MealsCategories'
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: '#351401'
+            },
+            headerTintColor: 'white',
+            contentStyle: {
+              backgroundColor: '#3f2f25'
+            }
+          }}
+          >
+          
+          <Stack.Screen name='MealsCategories' component={CategoriresScreen} 
+            options={{
+              title: 'All categories',
+            }}/>
           <Stack.Screen name='MealsOverview' component={MealsOverviewScreen}/>
+          <Stack.Screen name='MealDetailsScreen' component={MealDetailsScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
     </>

@@ -10,14 +10,16 @@ const CategoriresScreen = ({navigation}) => {
 
     const keyExtractorCategory = useCallback((item) => item.id,[])
 
-    const onPressCategoryHandler = useCallback(()=>{
-        navigation.navigate('MealsOverview');
-    },[]);
+    const onPressCategoryHandler = useCallback((itemData)=>{
+        navigation.navigate('MealsOverview', {
+            categoryId: itemData.item.id
+        });
+    },[navigation]);
 
     const renderCategory = useCallback((itemData) => {
 
-        return <CategoryGridTile onPress={onPressCategoryHandler} color={itemData.item.color} title={itemData.item.title}/>
-    },[])
+        return <CategoryGridTile onPress={() => onPressCategoryHandler(itemData)} color={itemData.item.color} title={itemData.item.title}/>
+    },[onPressCategoryHandler])
 
     return (
         <View>
