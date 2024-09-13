@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect } from "react";
+import React, { useCallback, useContext, useLayoutEffect } from "react";
 import { View, Text, StyleSheet, Image, FlatList, ScrollView, Button } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
@@ -6,27 +6,41 @@ import { MEALS } from "../data/dummy-data";
 import MealDetails from "../components/MealDetails";
 import { Subtitle } from "../components/MealDetail/Subtitle";
 import List from "../components/MealDetail/List";
+import IconButton from "../components/IconButton";
+import { FadeIn } from "react-native-reanimated";
+import { FavoritesContext } from "../store/context/favorites-context";
 
 const MealDetailsScreen = () => {
 
+    
+
     const navigation = useNavigation();
     const route = useRoute();
+    const favoriteMealsCtx = useContext(FavoritesContext);
 
     const mealId = route.params.mealId;
 
+    const mealIsFavorite = favoriteMealsCtx.ids.includes(mealId);
+
+    
+
     const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
-    const headerButtonPressHandler = useCallback(() => {
-        console.log('Pressed!');
-    }, []);
+    const changeFavoriteStatusHandler = useCallback(() => {
+        if(mealIsFavorite){
+            favoriteMealsCtx.removeFavorite(mealId);
+        }else{
+            favoriteMealsCtx.addFavorite(mealId);
+        }
+    }, [mealIsFavorite, mealId]);
 
     useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => {
-                return <Button title="Tap me" onPress={headerButtonPressHandler}/>;
+                return <IconButton icon={mealIsFavorite ? 'star' : 'star-outline'} color='white' onPress={changeFavoriteStatusHandler}/>;
             },
         })
-    }, [navigation, headerButtonPressHandler])
+    }, [navigation, changeFavoriteStatusHandler])
     
 
     return (
@@ -84,5 +98,6 @@ const styles = StyleSheet.create({
     listInnerContainer: {
         width: '80%',
     },
+    
 });
 

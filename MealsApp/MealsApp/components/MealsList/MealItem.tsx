@@ -1,7 +1,7 @@
 import { View, Text, Pressable, Image, StyleSheet, Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useCallback } from "react";
-import MealDetails from "./MealDetails";
+import MealDetails from "../MealDetails";
 
 const MealItem = ({id, title, imageUrl, duration, complexity, affordability}) => {
 
